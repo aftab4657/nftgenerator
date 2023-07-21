@@ -1,0 +1,17 @@
+<div id="popup">
+    <h3>CID: {{ cid }}</h3>
+    <button onclick="copyCID()">Copy CID</button>
+  </div>
+  
+  <script>
+    function copyCID() {
+      var cidElement = document.getElementById("cid");
+      var range = document.createRange();
+      range.selectNode(cidElement);
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      window.getSelection().removeAllRanges();
+      alert("CID copied to clipboard!");
+    }
+  </script>
+  

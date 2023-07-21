@@ -1,0 +1,6 @@
+<!-- index.html -->
+<form method="POST" action="{% url 'run-command' %}">
+    {% csrf_token %}
+    <button type="submit">Run Python Command</button>
+  </form>
+  
