@@ -127,15 +127,17 @@ def upload_layers(request):
 
 @csrf_exempt
 def get_task_status(request):
+        print("........................get_task_status test...............")
     # try:
         dir = request.POST.get('output_path')
         task_id = request.POST.get('task_id')
-        print(task_id)
+        # print(task_id)
         # print("hhhurayyyyyyy", task_id)
         if "uploads" in dir:
             dir = dir.replace("uploads", "")
         BASE_DIR = settings.MEDIA_ROOT
         folder_path = BASE_DIR + f'/{dir}/nfts/public_mint_assets'
+        print(folder_path, "\n Folder path check")
         folder_path = str(Path(folder_path))
 
         # get task
@@ -156,6 +158,7 @@ def get_task_status(request):
         if os.path.isdir(folder_path):
             is_valid = True
             files = os.listdir(path=folder_path)
+            print(files,'files check')
             images_counter = 0
             for f in files:
                 # print(f)
@@ -661,12 +664,10 @@ async def start_uploading_ipfs(zipPath, folder_path):
 @csrf_exempt
 def upload_on_ipfs_server(request):
     # try:
-        print("upload ipfs kdkdkdkdkdkd")
         folder = request.POST.get('resources')
         task_id =  request.POST.get('task_id')
         print(task_id, folder)
         task_id = task_id
-
         BASE_DIR = settings.MEDIA_ROOT
 
         nfts_path = BASE_DIR + f'/{folder}/output/images'
