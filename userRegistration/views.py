@@ -158,7 +158,7 @@ def get_task_status(request):
         if os.path.isdir(folder_path):
             is_valid = True
             files = os.listdir(path=folder_path)
-            print(files,'files check')
+            print(files,'\nfiles check')
             images_counter = 0
             for f in files:
                 # print(f)
@@ -671,10 +671,17 @@ def upload_on_ipfs_server(request):
         BASE_DIR = settings.MEDIA_ROOT
 
         nfts_path = BASE_DIR + f'/{folder}/output/images'
+        # nfts_path = os.path.join(BASE_DIR, folder, 'output', 'images')
         file_path = "storedirectory/storeDirectory.mjs"
-        full_path = settings.BASE_DIR / file_path
+        full_path = os.path.join(settings.BASE_DIR, file_path)
+
+        # Ensure the Node.js script is using the correct path separator for the operating system
+        node_script_path = full_path.replace('\\', '/')
+
+        # file_path = "storedirectory/storeDirectory.mjs"
+        # full_path = settings.BASE_DIR / file_path
         # node_script_path = r'C:\Users\Administrator\Desktop\djangoNftGenerator\nftgen\storedirectory\storeDirectory.mjs'
-        subprocess.Popen(['node', full_path, nfts_path, task_id])
+        subprocess.Popen(['node', node_script_path, nfts_path, task_id])
         # subprocess.Popen(['node', node_script_path, nfts_path, task_id])
         print("bfore command")
         # subprocess.Popen(['python', 'C:\\Users\\Administrator\\Desktop\\nftGen_Arguement\\nftStart.py', '-z', "1", '-d', nfts_path, '-i', str(task_id)])
