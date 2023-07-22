@@ -1,0 +1,384 @@
+<!-- upload_file.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<style>
+  .progress-style{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20vw;
+    background-color: #fff;
+    border: 1px solid #ccc;
+  }
+</style>
+
+    <!-- Header -->
+    <header class="bg-dark py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <a href="/" class="text-white text-decoration-none fw-bold">My NFT Site</a>
+          </div>
+          <div class="col-12 col-md-6 text-md-end">
+            <a href="#" class="btn btn-primary me-3">Connect Wallet</a>
+            <a href="#" class="btn btn-secondary">My Account</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div id="splash" style="display: none;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh ;z-index: 999999999; background-color: rgba(17, 4, 4, 0.37);">
+      <div class="progress progress-style">
+        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <main class="container my-5 min-vh-100">
+      <div class="row">
+        <div class="col-12 col-md-6">      
+          <div id="content" style="">
+            <h1>Upload a file</h1>
+            <form id="upload-form" class="form-hideable" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit" class="btn btn-primary mt-3">Upload</button>
+            </form>
+          </div>
+        </div>
+        <div class="col-12 col-md-6" id="expected-outptut">
+
+        </div>
+      </div>
+      <main class="p-0 m-0" id="layers-wrapers">
+
+      </main>
+      <!-- <form id="gennft-form-dddd" method="post" action='{% url "generate_nfts" %}'> -->
+      <form id="gennft-form" style="display: none;" class="form-hideable" method="post">
+        <div class="row mt-5">
+            {% csrf_token %}
+            
+              <div class="col-md-3">
+                <div class="form-floating">
+                  {{ nftForm.name }}
+                  <label for="">Name</label>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-floating">
+                  {{ nftForm.symbol }}
+                  <label for="">Symbol</label>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="form-floating">
+                    {{ nftForm.description }}
+                  <label for="">Description</label>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-floating">
+                    {{ nftForm.sellerfee }}
+                  <label for="">Seller Fee</label>
+                </div>
+              </div>
+
+           </div>
+           
+           <div class="row mt-3">
+            <div class="col-md-12">
+              <div class="form-floating">
+                  {{ nftForm.externalurl }}
+                <label for="">External URL</label>
+              </div>
+            </div>
+           </div>
+
+           <div class="row mt-3">
+              <div class="col-md-3">
+                <div class="form-floating">
+                    {{ nftForm.collectionname }}
+                  <label for="">Collectin Name</label>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-floating">
+                    {{ nftForm.collectionfamily }}
+                  <label for="">Collectin Family</label>
+                </div>
+              </div>
+           </div>
+
+           <div class="row mt-3">
+            <div class="col-md-6">
+              <div class="form-floating">
+                  {{ nftForm.creatoraddress }}
+                <label for="">Creator Address</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-floating">
+                  {{ nftForm.creatorshare }}
+                <label for="">Creator Share</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-floating">
+                  {{ nftForm.totalnfts }}
+                <label for="">Total NFTs</label>
+              </div>
+            </div>
+           </div>
+
+            {{ nftForm.nfts_path_input }}
+            {{ nftForm.nfts_path_output }}
+            <button type="submit" class="btn btn-primary mt-3">Generate NFTs</button>
+
+    </form>
+
+    <form id="download-form" method="post" action='{% url "download_nfts" %}'>
+      <input type="text" name="path" hidden id="path">
+      <a href="/" style="display: none;" id="home-link">Go to Home Page</a>
+      <button type="submit"  hidden class="btn btn-primary mt-3">download</button>
+    </form>
+
+    </main>
+
+  
+
+     <!-- Footer -->
+     <footer class="bg-dark text-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Follow Us</h5>
+            <ul class="list-unstyled">
+              <li><a href="#">Facebook</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">Instagram</a></li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h5>Contact Us</h5>
+            <ul class="list-unstyled">
+              <li>Address: 123 Main St, Anytown USA</li>
+              <li>Email: info@mywebsite.com</li>
+              <li>Phone: 555-123-4567</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+  <script>
+
+    function add_temp1(title){
+      var temp1 = `
+          <div class="row mb-3" id="`+title+`">
+            <div class="col-12">      
+                <h3> Layer: `+title+`</h3>
+            </div>
+          </div>`;
+      $("#layers-wrapers").append(temp1);
+    }
+
+    function add_temp2(wraper, img, rarity){
+      var rarity_name = img.split("/");
+      console.log("Splinter", rarity_name);
+      rarity_name = rarity_name[rarity_name.length - 1];
+      rarity_name = wraper + "-*-" + rarity_name;
+      rarity_name = "rarity-" +  rarity_name;
+      console.log("Splinter-1", rarity_name);
+      var temp2 = `
+          <div class="col-md-1">      
+            <img src="` + img + `" alt="Collection Image" class='img-thumbnail' required>
+            <input class="form-control" style='max-width: 200px;' name="`+rarity_name+`" form="gennft-form" type='number' min="1" value="`+rarity+`">
+          </div>`;
+      $("#" + wraper).append(temp2);
+    }
+
+    function add_expected_output(img, total){
+      var temp2 = `
+      <h5>Expected NFTs: <span class="text-warning"> ` +total+ ` </span></h5>
+      <img src="` + img + `" alt="Collection Image" class='border' style='max-width: 200px; max-height: 200px'>`;
+      $("#expected-outptut").append(temp2);
+    }
+
+    $(function() {
+      $('#upload-form').submit(function(e) {
+        e.preventDefault();
+
+        var formData = new FormData($(this)[0]);
+        var progressBar = $('.progress-bar');
+        var splash = $('#splash');
+        var content = $('#content');
+
+        splash.show();
+        content.hide();
+
+        $.ajax({
+          url: '{% url "upload_file" %}',
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          xhr: function() {
+            var xhr = new window.XMLHttpRequest();
+            xhr.upload.addEventListener('progress', function(evt) {
+              if (evt.lengthComputable) {
+                var percentComplete = evt.loaded / evt.total;
+                progressBar.css('width', percentComplete * 100 + '%');
+              }
+            }, false);
+            return xhr;
+          },
+          success: function(response) {
+            if (response.success) {
+              console.log('File upload successful!');
+              // console.log(response.context.sample);
+              add_expected_output(response.context.sample, response.context.extected_nfts);
+              $("#nftsPaths_input").val(response.context.collections_input);
+              $("#nftsPaths_output").val(response.context.collections_ouput);
+              for(var i = 0; i < response.context.images.length; i++){
+                console.log(response.context.images[i]);
+                add_temp1(response.context.images[i]["layer"]);
+                for(var j = 0; j < response.context.images[i]["images"].length; j++){
+                  console.log(response.context.images[i]["layer"]);
+                  console.log(response.context.images[i]["images"][j]);
+                  add_temp2(response.context.images[i]["layer"], response.context.images[i]["images"][j], response.context.images[i]["rarity"])
+                }
+                $("#gennft-form").show();
+              }
+              // window.location.reload();
+              splash.hide();
+              content.show();
+            } else {
+              alert('File upload failed:\n' + response.errors);
+              splash.hide();
+              content.show();
+            }
+          },
+          error: function(xhr, status, error) {
+            alert('File upload failed: ' + error);
+            splash.hide();
+            content.show();
+          }
+        });
+      });
+    });
+
+    var is_resources_ready = false;
+    
+    $('#gennft-form').on('submit', function(event) {
+        event.preventDefault();
+        var form_data = $(this).serialize();
+        var progressBar = $('.progress-bar');
+        var splash = $('#splash');
+        var content = $('#content');
+        check_status();
+        splash.show();
+        content.hide();
+        $.ajax({
+            url: '{% url "generate_nfts" %}',
+            type: 'POST',
+            data: form_data,
+            processData: false,
+            xhr: function() {
+              var xhr = new window.XMLHttpRequest();
+              xhr.upload.addEventListener('progress', function(evt) {
+                if (evt.lengthComputable) {
+                  var percentComplete = evt.loaded / evt.total;
+                  progressBar.css('width', percentComplete * 100 + '%');
+                }
+              }, false);
+              return xhr;
+            },
+            success: function(response) {
+                console.log('Task started successfully');
+                console.log(response);
+                if(response.valid){
+                  // check_status(response.task_id);
+                  is_resources_ready = 1;
+                  console.log("---------");
+                  console.log(response);
+                  console.log("---------");
+
+                }
+                else{
+                  is_resources_ready = 0;
+                }
+                splash.hide();
+                content.show();
+            },
+            error: function(xhr, status, error) {
+                is_resources_ready = 0;
+                console.log('Error starting task');
+                splash.hide();
+                content.show();
+            }
+        });
+    });
+
+    function check_status(){
+      var progressBar = $('.progress-bar');
+      var path = $("#nftsPaths_output").val();
+      var total_to_generate = $("#id_totalnfts").val();
+      $.post("/get_details/", {output_path: path})
+        .done(function(data) {
+          console.log(data);
+          if(data.valid){
+            console.log("Images Generated: ", data.count);
+            if(data.count == total_to_generate){
+              console.log("Completed");
+              $(".form-hideable").hide();
+              $("#home-link").show();
+              $("#path").val(path);
+              var intval = setInterval(function(){
+                if(is_resources_ready === 1){
+                  clearInterval(intval);
+                  $("#download-form").submit();
+                }
+                else if(is_resources_ready === 0){
+                  clearInterval(intval);
+                  console.log("error");
+                }
+                
+              }, 3000);
+              
+              // location.reload();
+
+            }
+            else{
+              var percentComplete = 0 / total_to_generate;
+                progressBar.css('width', percentComplete * 100 + '%');
+              setTimeout(check_status, 3000);
+
+            }
+            var percentComplete = data.count / total_to_generate;
+            progressBar.css('width', percentComplete * 100 + '%');
+
+          }
+          else{
+            console.log(data.error);
+            setTimeout(check_status, 3000);
+          }
+        })
+        .fail(function(xhr, status, error) {
+          console.log(xhr.responseText);
+          
+        });
+        
+    }
+
+  </script>
+{% endblock %}

@@ -1,0 +1,238 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamically Generated Layers</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}">  -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <!-- Include the SweetAlert Css -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+<!-- Include the SweetAlert JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+
+<style>
+    .rmv-btn-style{
+      position: absolute;
+      top: 10px;
+      right: 20px;
+    }
+
+    .nft-sample {
+      /* position: relative; */
+      width: 200px;
+      height: 200px;
+     
+    }
+
+  .nft-sample img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #fff; 
+  }
+
+  .progress-style{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20vw;
+    background-color: #fff;
+    border: 1px solid #ccc;
+  }
+
+
+
+  </style>
+
+</head>
+<body>
+
+
+    <div class="container-fluid bg p-5">
+
+
+      <div id="splash" style="display: none;position: fixed; top: 0; left: 0; width: 100vw; height: 100vh ;z-index: 999999999; background-color: rgba(17, 4, 4, 0.37);">
+        <div class="progress progress-style">
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+
+        <div class="row  mb-2 p-3 ">
+          <div class="col-10 bg-dark p-3">
+            <form id="layersForm" method="POST" enctype="multipart/form-data">
+                <div id="layers">
+                    <div class="layer">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text custom-input-group-text">Layer Name</span>
+                        <div class="form-row">
+                          <div class="col-12">
+                            <input type="text" required class="form-control layer-name custom-input" value="Layer 1">
+                          </div>
+                        </div>
+                      <button type="button" class="btn remove-layer custom-button">X</button>
+                      </div>
+                      <div class="image-selector mb-3">
+                        <div class="layer-image-preview row overflow-x-auto" style="width:100%; display:flex;flex-wrap:nowrap;"  data-layer="1">
+                          <div class="col-md-1 align-self-center">
+                            <input type="file" required class="form-control-file layer-image-selector custom-file" data-layer="1" multiple>
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                </div>
+            </form>
+            <form id="gennft-form" style="display: none;" class="form-hideable" method="post">
+              <div class="row mt-5">
+                  {% csrf_token %}
+                    <input type="text" name="layers_as_folder" hidden value="as_layers">
+                    <div class="col-md-3">
+                      <div class="form-floating">
+                        {{ nftForm.name }}
+                        <label for="">Name</label>
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-floating">
+                          {{ nftForm.description }}
+                        <label for="">Description</label>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-floating">
+                        {{ nftForm.symbol }}
+                        <label for="">Symbol</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2">
+                      <div class="form-floating">
+                          {{ nftForm.sellerfee }}
+                        <label for="">Seller Fee</label>
+                      </div>
+                    </div>
+      
+                 </div>
+                 
+                 <div class="row mt-3">
+                  <div class="col-md-12">
+                    <div class="form-floating">
+                        {{ nftForm.externalurl }}
+                      <label for="">External URL</label>
+                    </div>
+                  </div>
+                 </div>
+      
+                 <div class="row mt-3">
+                    <div class="col-md-3">
+                      <div class="form-floating">
+                          {{ nftForm.collectionname }}
+                        <label for="">Collectin Name</label>
+                      </div>
+                    </div>
+      
+                    <div class="col-md-3">
+                      <div class="form-floating">
+                          {{ nftForm.collectionfamily }}
+                        <label for="">Collectin Family</label>
+                      </div>
+                    </div>
+                 </div>
+      
+                 <div class="row mt-3">
+                  <div class="col-md-3">
+                    <div class="form-floating">
+                        {{ nftForm.totalnfts }}
+                      <label for="">Total NFTs</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating">
+                        {{ nftForm.creatoraddress }}
+                      <label for="">Creator Address</label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-floating">
+                        {{ nftForm.creatorshare }}
+                      <label for="">Creator Share</label>
+                    </div>
+                  </div>
+
+                 </div>
+
+                
+      
+                  {{ nftForm.nfts_path_input }}
+                  {{ nftForm.nfts_path_output }}
+                  {{ nftForm.task_id }}
+                  <button type="submit" class="btn btn-primary mt-3">Generate NFTs</button>
+      
+          </form>
+          </div>
+          <div class="col-2">
+            <div class="nft-sample sticky-top">
+            </div>
+            <div class="total-nfts">
+            </div>
+          </div>
+        </div>
+        <!-- <div class="container-fluid d-flex justify-content-center bg-dark p-3">
+          <button type="button" class="btn btn-secondary form-1-btn add-layer" id="add-layer ">Add Layer</button>
+        </div> -->
+        
+        <button type="button" class="btn btn-secondary form-1-btn add-layer" id="add-layer"><i class="fa-regular fa-folder-open"></i>Add Layer</button>
+        <br>
+        <button id="submit-button" class="btn btn-primary form-1-btn mt-5" form="layersForm">Uploads Layers on Server</button>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <form id="download-form" class="mt-3" method="post" action='{% url "download_nfts" %}'>
+            <input type="text" name="path" hidden id="path">
+            <a href="/layers/"  class="btn btn-secondary" style="display: none;" id="home-link">Go to Home Page</a>
+            <!-- <button type="submit" id="download-btn" style="display: none;"  class="btn btn-primary">download</button> -->
+            <button type="submit" id="download-btn" name="download" style="display: none;"  class="btn btn-primary download"><i class="fa-solid fa-cloud-arrow-down"></i>download</button>
+            <button type="submit" id="ipfsdownload-btn" name="ipfs-download" style="display: none;"  class="btn btn-primary download">download IPFS Data</button>
+            <button type="button" id="uploadipfs-btn" style="display: none;"  class="btn btn-primary upload"><i class="fa-solid fa-cloud-arrow-up"></i>Upload IPFS Server</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+    integrity="sha384-MlZkWEwfr1m3RYVK3flf9rGh1xgwC5YZ5R5QtfKZa+LEArwQ0+N0cbH8onD1yRG9"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js"></script>
+  <script>
+    var upload_layers ="{% url 'upload_layers' %}"
+    var generate_nfts_layer = '{% url "generate_nfts_layer" %}'
+    var upload_ipfs_server = '{% url "upload_ipfs_server" %}';
+    var getDetailsUrl = "{% url 'get-task-status' %}";  
+    var dnfts =  "{% url 'download_nfts' %}"
+    console.log(getDetailsUrl);
+  </script>
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+  <!-- <script src="{% static 'js/index.js' %}"> </script> -->
+  <script src="{% static 'js/jquery.js' %}"></script>
+  <script src="{% static 'js/index.js' %}"></script>
+  
+
+  <!-- <script src="{% static 'js/index.js' %}"> </script> -->
+
+  <!-- <script src="{% static 'admin/js/index.js' %}"> </script> -->
+
+</body>
+</html>
