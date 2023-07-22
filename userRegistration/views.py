@@ -661,8 +661,9 @@ def upload_on_ipfs_server(request):
         task_id = task_id
 
         BASE_DIR = settings.MEDIA_ROOT
+
         nfts_path = BASE_DIR + f'/{folder}/output/images'
-        file_path = "storedirectory\storeDirectory.mjs"
+        file_path = "storedirectory/storeDirectory.mjs"
         full_path = settings.BASE_DIR / file_path
         # node_script_path = r'C:\Users\Administrator\Desktop\djangoNftGenerator\nftgen\storedirectory\storeDirectory.mjs'
         subprocess.Popen(['node', full_path, nfts_path, task_id])
