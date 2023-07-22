@@ -390,11 +390,11 @@ def generate_nfts_Layers(request):
             # task_one.apply_async(args=["taskone"]).get()
             # print("view generate nfts layers ")
             print("jason resopnse start")
-            print({'valid': True, 'status': 'running', 'task_id': str(task_id), 'output_dir': f'/{zipPath}'})
+            print({'valid': True, 'status': 'running', 'task_id': str(task_id), 'output_dir': f'{zipPath}'})
             print("jason resopnse end")
 
             print("...................................test end.....................................")
-            return JsonResponse({'valid': True, 'status': 'running', 'task_id': str(task_id), 'output_dir': f'/{zipPath}'})
+            return JsonResponse({'valid': True, 'status': 'running', 'task_id': str(task_id), 'output_dir': f'{zipPath}'})
         else:
             # print("form not valid")
             return JsonResponse({'valid': False, 'status': 'Problem', 'task_id': ""})
