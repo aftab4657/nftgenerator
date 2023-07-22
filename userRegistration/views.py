@@ -669,10 +669,10 @@ def upload_on_ipfs_server(request):
         print(task_id, folder)
         task_id = task_id
         media_root_dir = settings.MEDIA_ROOT
-        print(media_root_dir, "media root dir check slash in the end" )
 
-        nfts_path = media_root_dir + f'/{folder}/output/images'
-        print(nfts_path, "check path here also")
+        # nfts_path = media_root_dir + f'{folder}/output/images'
+        nfts_path = os.path.join(settings.MEDIA_ROOT, f'{folder}/output/images')
+        print(nfts_path, "check path here also new")
         # nfts_path = os.path.join(BASE_DIR, folder, 'output', 'images')
         file_path = "storedirectory/storeDirectory.mjs"
         full_path = os.path.join(settings.BASE_DIR, file_path)
@@ -683,16 +683,15 @@ def upload_on_ipfs_server(request):
 
         # Ensure the Node.js script is using the correct path separator for the operating system
         # node_script_path = full_path.replace('\\', '/')
-        node_script_path = full_path
+        # node_script_path = full_path
         # print(full_path.replace('\\', '/'), "\n node script path")
-        print(node_script_path)
-        print("..................................node script path...................")
+        # print(node_script_path)
 
 
         # file_path = "storedirectory/storeDirectory.mjs"
         # full_path = settings.BASE_DIR / file_path
         # node_script_path = r'C:\Users\Administrator\Desktop\djangoNftGenerator\nftgen\storedirectory\storeDirectory.mjs'
-        subprocess.Popen(['node', node_script_path, nfts_path, task_id])
+        subprocess.Popen(['node', full_path, nfts_path, task_id])
         # subprocess.Popen(['node', node_script_path, nfts_path, task_id])
         print("bfore command")
         # subprocess.Popen(['python', 'C:\\Users\\Administrator\\Desktop\\nftGen_Arguement\\nftStart.py', '-z', "1", '-d', nfts_path, '-i', str(task_id)])
