@@ -1,11 +1,17 @@
 {
   "name": "store-directory",
   "version": "1.0.0",
-  "description": "",
+  "description": "store directory",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "your-git-repository-url"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+    
   },
+  
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -18,4 +24,5 @@
     "nft.storage": "^7.1.0",
     "web3.storage": "^4.5.4"
   }
+  
 }

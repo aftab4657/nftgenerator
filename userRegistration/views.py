@@ -667,7 +667,7 @@ def upload_on_ipfs_server(request):
         folder = request.POST.get('resources')
         task_id =  request.POST.get('task_id')
         print(task_id, folder)
-        task_id = task_id
+        # task_id = task_id
         media_root_dir = settings.MEDIA_ROOT
 
         # nfts_path = media_root_dir + f'{folder}/output/images'
