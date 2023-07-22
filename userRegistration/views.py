@@ -351,6 +351,7 @@ def generate_nfts_Layers(request):
             # update_task_status(task_id, "running", "task started")
             print("genetae 1")
             temp_path = BASE_DIR + f'/{nftsPaths_input}/input/template.json'
+            
             with open(temp_path, 'w') as f:
                 json.dump(temps, f)
 
@@ -364,16 +365,16 @@ def generate_nfts_Layers(request):
             #     nftsPaths_input = "/uploads/" + nftsPaths_input
             # if "uploads" not in nftsPaths_output:
             #     nftsPaths_output = "/uploads/" + nftsPaths_output
-            print(nftsPaths_input)
+            print(nftsPaths_input, "............................................ nfts path")
             print(nftsPaths_output)
-            nft_dir_path = BASE_DIR + "\\" + nftsPaths_input
+            nft_dir_path = BASE_DIR + "/" + nftsPaths_input 
             print(nft_dir_path)
             print("$" * 500)
             # generate_nft.delay([int(totalnfts)],collection_input=nftsPaths_input,collection_output= nftsPaths_output,zipPath=zipPath, folder_path=folder_path,task_id= task_id)
             # subprocess.Popen(['python', 'C:\\Users\\Administrator\\Desktop\\nftGen_Arguement\\nftStart.py', '-p', '30', '-d', BASE_DIR + f'/{zipPath}'}])
             try:
                 file_path = "nft_gen/nftStart.py"
-                full_path_for_python_script = settings.BASE_DIR / file_path
+                full_path_for_python_script = settings.BASE_DIR / file_path #hh
                 # subprocess.Popen(['python', r'C:\Users\Administrator\Desktop\djangoNftGenerator\nftgen\nft_gen\nftStart.py', '-p', totalnfts, '-d', nft_dir_path, '-i', task_id])
                 subprocess.Popen(['python', full_path_for_python_script, '-p', totalnfts, '-d', nft_dir_path, '-i', task_id])
             except Exception as e:
