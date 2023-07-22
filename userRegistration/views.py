@@ -674,9 +674,18 @@ def upload_on_ipfs_server(request):
         # nfts_path = os.path.join(BASE_DIR, folder, 'output', 'images')
         file_path = "storedirectory/storeDirectory.mjs"
         full_path = os.path.join(settings.BASE_DIR, file_path)
+        print("...................full path.....................")
+        print(full_path)
+        print("...................full path.....................")
+
 
         # Ensure the Node.js script is using the correct path separator for the operating system
-        node_script_path = full_path.replace('\\', '/')
+        # node_script_path = full_path.replace('\\', '/')
+        node_script_path = full_path
+        # print(full_path.replace('\\', '/'), "\n node script path")
+        print(node_script_path)
+        print("..................................node script path...................")
+
 
         # file_path = "storedirectory/storeDirectory.mjs"
         # full_path = settings.BASE_DIR / file_path
