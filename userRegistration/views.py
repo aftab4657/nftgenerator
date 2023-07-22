@@ -668,9 +668,11 @@ def upload_on_ipfs_server(request):
         task_id =  request.POST.get('task_id')
         print(task_id, folder)
         task_id = task_id
-        BASE_DIR = settings.MEDIA_ROOT
+        media_root_dir = settings.MEDIA_ROOT
+        print(media_root_dir, "media root dir check slash in the end" )
 
-        nfts_path = BASE_DIR + f'/{folder}/output/images'
+        nfts_path = media_root_dir + f'/{folder}/output/images'
+        print(nfts_path, "check path here also")
         # nfts_path = os.path.join(BASE_DIR, folder, 'output', 'images')
         file_path = "storedirectory/storeDirectory.mjs"
         full_path = os.path.join(settings.BASE_DIR, file_path)
