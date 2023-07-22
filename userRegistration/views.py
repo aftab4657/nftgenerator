@@ -308,8 +308,8 @@ async def generate_nfts_Layers_old(request):
 
 
 def generate_nfts_Layers(request):
-    if request.method == 'POST':
-        print("view generate nfts layers start")
+        # print("view generate nfts layers start")
+        print('...........................test start...................')
         form = GenerateNFTsForm(request.POST)
         if form.is_valid():
             nftsPaths_input = request.POST.get('nfts_path_input')
@@ -349,15 +349,16 @@ def generate_nfts_Layers(request):
 
             task_id = request.POST.get('task_id')
             # update_task_status(task_id, "running", "task started")
-            print("genetae 1")
+            # print("genetae 1")
             temp_path = BASE_DIR + f'/{nftsPaths_input}/input/template.json'
             
             with open(temp_path, 'w') as f:
                 json.dump(temps, f)
 
             zipPath = BASE_DIR + "/" + str(nftsPaths_output).replace("output", "") + 'resources.zip'
+            print(zipPath, '\n zip path check')
             folder_path = BASE_DIR + f'/{nftsPaths_output}'
-            print("before function call")
+            # print("before function call")
             # Call the generate_nft task asynchronously
             # number_listnf, testRarities=False, randomizedOutput=False, collection_input="", collection_output="",zipPath="", folder_path="",task_id=""
 
@@ -365,16 +366,17 @@ def generate_nfts_Layers(request):
             #     nftsPaths_input = "/uploads/" + nftsPaths_input
             # if "uploads" not in nftsPaths_output:
             #     nftsPaths_output = "/uploads/" + nftsPaths_output
-            print(nftsPaths_input, "............................................ nfts path")
-            print(nftsPaths_output)
+            # print(nftsPaths_input, "............................................ nfts path")
+            # print(nftsPaths_output)
             nft_dir_path = BASE_DIR + "/" + nftsPaths_input 
-            print(nft_dir_path)
-            print("$" * 500)
+            print(nft_dir_path, "\nnft dir path check")
+            # print("$" * 500)
             # generate_nft.delay([int(totalnfts)],collection_input=nftsPaths_input,collection_output= nftsPaths_output,zipPath=zipPath, folder_path=folder_path,task_id= task_id)
             # subprocess.Popen(['python', 'C:\\Users\\Administrator\\Desktop\\nftGen_Arguement\\nftStart.py', '-p', '30', '-d', BASE_DIR + f'/{zipPath}'}])
             try:
                 file_path = "nft_gen/nftStart.py"
                 full_path_for_python_script = settings.BASE_DIR / file_path #hh
+                print(full_path_for_python_script, '\n full nft path check')
                 # subprocess.Popen(['python', r'C:\Users\Administrator\Desktop\djangoNftGenerator\nftgen\nft_gen\nftStart.py', '-p', totalnfts, '-d', nft_dir_path, '-i', task_id])
                 subprocess.Popen(['python', full_path_for_python_script, '-p', totalnfts, '-d', nft_dir_path, '-i', task_id])
             except Exception as e:
@@ -386,11 +388,16 @@ def generate_nfts_Layers(request):
 
 
             # task_one.apply_async(args=["taskone"]).get()
-            print("view generate nfts layers ")
+            # print("view generate nfts layers ")
+            print("jason resopnse start")
+            print({'valid': True, 'status': 'running', 'task_id': str(task_id), 'output_dir': f'/{zipPath}'})
+            print("jason resopnse end")
+
+            print("...................................test end.....................................")
             return JsonResponse({'valid': True, 'status': 'running', 'task_id': str(task_id), 'output_dir': f'/{zipPath}'})
         else:
-            print("form not valid")
-    return JsonResponse({'valid': False, 'status': 'Problem', 'task_id': ""})
+            # print("form not valid")
+            return JsonResponse({'valid': False, 'status': 'Problem', 'task_id': ""})
 
 
 async def generate_nfts(request):
