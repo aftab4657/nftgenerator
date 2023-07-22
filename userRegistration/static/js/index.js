@@ -78,7 +78,7 @@ $('#add-layer').click(function() {
   newLayer += '<button type="button" class="btn btn-danger remove-layer custom-button">X</button>';
   newLayer += '</div>';
   newLayer += '<div class="image-selector mb-3">';
-  newLayer += '<div class="layer-image-preview row overflow-x-auto" style="position: relative; width:100%; display:flex;flex-wrap:nowrap;" data-layer="' + layerCount + '"><div class="col-md-1 align-self-center"><input type="file" required class="form-control-file layer-image-selector custom-file" data-layer="' + layerCount + '" multiple></div></div>';
+  newLayer += '<div class="layer-image-preview row overflow-x-auto" style="position: relative; width: 100%; display:flex; flex-wrap:nowrap ;" data-layer="' + layerCount + '"><div class="col-md-1 align-self-center"><input type="file" required class="form-control-file layer-image-selector custom-file" data-layer="' + layerCount + '" multiple></div></div>';
   newLayer += '</div>';
   newLayer += '</div>';
   $('#layers').append(newLayer);
