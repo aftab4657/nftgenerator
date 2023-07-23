@@ -189,9 +189,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 #     },
 # }
 
+# Keep MEDIA_ROOT defined first
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads/")
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
-MEDIA_URL = '/uploads/' 
+# Then define MEDIA_URL
+MEDIA_URL = "/uploads/"
+
+
  
 
 

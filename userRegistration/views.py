@@ -352,7 +352,7 @@ def generate_nfts_Layers(request):
 
             task_id = request.POST.get('task_id')
             # update_task_status(task_id, "running", "task started")
-            # print("genetae 1")
+            print(task_id, "task_id printed")
             temp_path = BASE_DIR + f'/{nftsPaths_input}/input/template.json'
             
             with open(temp_path, 'w') as f:
@@ -664,21 +664,31 @@ async def start_uploading_ipfs(zipPath, folder_path):
 @csrf_exempt
 def upload_on_ipfs_server(request):
     # try:
+        print("upload ipfs kdkdkdkdkdkd")
         folder = request.POST.get('resources')
+        print(folder, "folder path")
         task_id =  request.POST.get('task_id')
-        print(task_id, folder)
-        # task_id = task_id
-        media_root_dir = settings.MEDIA_ROOT
-
-        # nfts_path = media_root_dir + f'{folder}/output/images'
-        nfts_path = os.path.join(settings.MEDIA_ROOT, f'{folder}/output/images')
-        print(nfts_path, "check path here also new")
+        print(task_id, "task_id")
+        
+        task_id = task_id
+        print(task_id,"hello")
+        BASE_DIR = settings.MEDIA_ROOT
+        nfts_path = BASE_DIR + f'/{folder}/output/images'
+        # nfts_path = os.path.join(settings.MEDIA_ROOT, f'{folder}/output/images')
+        print(nfts_path, "nfts_path")
         # nfts_path = os.path.join(BASE_DIR, folder, 'output', 'images')
         file_path = "storedirectory/storeDirectory.mjs"
+
+        # Construct the absolute path to the Node.js script using the Django project's root directory
         full_path = os.path.join(settings.BASE_DIR, file_path)
         print("...................full path.....................")
         print(full_path)
         print("...................full path.....................")
+            # file_path = "storedirectory/storeDirectory.mjs"
+        # full_path = os.path.join(settings.BASE_DIR, file_path)
+        # print("...................full path.....................")
+        # print(full_path)
+        # print("...................full path.....................")
 
 
         # Ensure the Node.js script is using the correct path separator for the operating system
