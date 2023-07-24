@@ -153,8 +153,14 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+MEDIA_URL = "uploads/"
+# MEDIA_ROOT = os.path.join(BASE_DIR, "uploads/")
+MEDIA_ROOT = "/home/azureuser/nftgenerator/uploads"
+# /home/azureuser/nftgenerator/nftgenerator/storedirectory/storeDirectory.mjs
+# /home/azureuser/nftgenerator/nftgenerator/nft_gen\nftStart.py
+# MEDIA_ROOT = "/nftgen/uploads and this upload  folder  should also be configured in the nginx server block for nftgen
+
+
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -189,11 +195,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 #     },
 # }
 
-# Keep MEDIA_ROOT defined first
-MEDIA_ROOT = os.path.join(BASE_DIR, "uploads/")
 
-# Then define MEDIA_URL
-MEDIA_URL = "/uploads/"
 
 
  

@@ -377,9 +377,12 @@ def generate_nfts_Layers(request):
             # generate_nft.delay([int(totalnfts)],collection_input=nftsPaths_input,collection_output= nftsPaths_output,zipPath=zipPath, folder_path=folder_path,task_id= task_id)
             # subprocess.Popen(['python', 'C:\\Users\\Administrator\\Desktop\\nftGen_Arguement\\nftStart.py', '-p', '30', '-d', BASE_DIR + f'/{zipPath}'}])
             try:
-                file_path = "nft_gen/nftStart.py"
-                full_path_for_python_script = settings.BASE_DIR / file_path #hh
-                print(full_path_for_python_script, '\n full nft path check')
+                # file_path = "nft_gen/nftStart.py"
+                # full_path_for_python_script = settings.BASE_DIR / file_path #hh
+                full_path_for_python_script = "/home/azureuser/nftgenerator/nftgenerator/nft_gen\nftStart.py"
+
+                
+                # print(full_path_for_python_script, '\n full nft path check')
                 # subprocess.Popen(['python', r'C:\Users\Administrator\Desktop\djangoNftGenerator\nftgen\nft_gen\nftStart.py', '-p', totalnfts, '-d', nft_dir_path, '-i', task_id])
                 subprocess.Popen(['python', full_path_for_python_script, '-p', totalnfts, '-d', nft_dir_path, '-i', task_id])
             except Exception as e:
@@ -674,39 +677,19 @@ def upload_on_ipfs_server(request):
         print(task_id,"hello")
         BASE_DIR = settings.MEDIA_ROOT
         nfts_path = BASE_DIR + f'/{folder}/output/images'
-        # nfts_path = os.path.join(settings.MEDIA_ROOT, f'{folder}/output/images')
         print(nfts_path, "nfts_path")
-        # nfts_path = os.path.join(BASE_DIR, folder, 'output', 'images')
-        file_path = "storedirectory/storeDirectory.mjs"
+        # file_path = "storedirectory/storeDirectory.mjs"
 
-        # Construct the absolute path to the Node.js script using the Django project's root directory
-        full_path = os.path.join(settings.BASE_DIR, file_path)
-        print("...................full path.....................")
-        print(full_path)
-        print("...................full path.....................")
-            # file_path = "storedirectory/storeDirectory.mjs"
         # full_path = os.path.join(settings.BASE_DIR, file_path)
         # print("...................full path.....................")
         # print(full_path)
         # print("...................full path.....................")
-
-
-        # Ensure the Node.js script is using the correct path separator for the operating system
-        # node_script_path = full_path.replace('\\', '/')
-        # node_script_path = full_path
-        # print(full_path.replace('\\', '/'), "\n node script path")
-        # print(node_script_path)
-
-
-        # file_path = "storedirectory/storeDirectory.mjs"
-        # full_path = settings.BASE_DIR / file_path
+        nodejs_file_path = "/home/azureuser/nftgenerator/nftgenerator/storedirectory/storeDirectory.mjs"
         # node_script_path = r'C:\Users\Administrator\Desktop\djangoNftGenerator\nftgen\storedirectory\storeDirectory.mjs'
-        subprocess.Popen(['node', full_path, nfts_path, task_id])
+        subprocess.Popen(['node',nodejs_file_path, nfts_path, task_id])
         # subprocess.Popen(['node', node_script_path, nfts_path, task_id])
         print("bfore command")
         # subprocess.Popen(['python', 'C:\\Users\\Administrator\\Desktop\\nftGen_Arguement\\nftStart.py', '-z', "1", '-d', nfts_path, '-i', str(task_id)])
-        # print("hellow ipfs server start")
-        # subprocess.Popen(['node', 'C:\\Users\\Administrator\\Desktop\\storedirectory\\storeDirectory.mjs', "C:\\Users\\Administrator\\Desktop\\storedirectory\\imgs", task_id])
         print("hellow ipfs server start")
        
 
